@@ -40,7 +40,7 @@ public interface CouponRepo extends JpaRepository<Coupon, Integer> {
                     "WHERE customer_id = :customerID)", nativeQuery = true)
     List<Coupon> getCustomerCoupons(int customerID);
 
-    @Query(value = "SELECT count(*) FROM customers_coupons" +
+    @Query(value = "SELECT count(*) FROM customers_coupons " +
                     "WHERE coupons_id = :couponID " +
                     "AND customer_id = :customerID", nativeQuery = true)
     int isPurchaseExist(int couponID, int customerID);
