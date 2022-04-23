@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Coupon {

@@ -13,10 +13,11 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.time.LocalDate;
 
-//@Component
+@Component
 @Order(2)
 @RequiredArgsConstructor
-public class companyTest implements CommandLineRunner {
+public class CompanyTest implements CommandLineRunner {
+
     private final CompanyService companyService;
 
     @Override
@@ -71,7 +72,6 @@ public class companyTest implements CommandLineRunner {
                 .price(9.99)
                 .image("image")
                 .build();
-
 
         System.out.println("TESTING ADD COUPON");
         companyService.addCoupon(coupon1);

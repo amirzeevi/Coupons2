@@ -3,7 +3,6 @@ package com.couponsSystemPhase2.clr;
 import com.couponsSystemPhase2.beans.Category;
 import com.couponsSystemPhase2.beans.Coupon;
 import com.couponsSystemPhase2.repositories.CouponRepo;
-import com.couponsSystemPhase2.service.CompanyService;
 import com.couponsSystemPhase2.service.CustomerService;
 import com.couponsSystemPhase2.utils.TablePrinter;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +12,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-//@Component
+@Component
 @Order(3)
 @RequiredArgsConstructor
-public class customerTest implements CommandLineRunner {
+public class CustomerTest implements CommandLineRunner {
+
     private final CustomerService customerService;
     private final CouponRepo couponRepo;
 

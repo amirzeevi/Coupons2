@@ -2,25 +2,20 @@ package com.couponsSystemPhase2.clr;
 
 import com.couponsSystemPhase2.beans.Company;
 import com.couponsSystemPhase2.beans.Customer;
-import com.couponsSystemPhase2.repositories.CompanyRepo;
-import com.couponsSystemPhase2.repositories.CouponRepo;
-import com.couponsSystemPhase2.repositories.CustomerRepo;
 import com.couponsSystemPhase2.service.AdminService;
 import com.couponsSystemPhase2.service.ClientType;
-import com.couponsSystemPhase2.service.CompanyService;
 import com.couponsSystemPhase2.service.LoginManager;
 import com.couponsSystemPhase2.utils.TablePrinter;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 
-//@Component
+@Component
 @Order(1)
 @RequiredArgsConstructor
-public class adminTest implements CommandLineRunner {
+public class AdminTest implements CommandLineRunner {
     private final LoginManager loginManager;
     AdminService adminService;
 

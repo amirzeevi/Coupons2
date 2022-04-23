@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Customer {
