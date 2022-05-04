@@ -11,7 +11,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-
+/**
+ * This is the test class for the AdminService class.
+ * Implementing all the class's methods and testing them.
+ */
 @Component
 @Order(1)
 @RequiredArgsConstructor

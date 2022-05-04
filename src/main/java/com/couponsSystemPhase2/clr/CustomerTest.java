@@ -11,6 +11,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+/**
+ * This is the test class for the CustomerService class.
+ * Implementing all the class's methods and testing them.
+ */
 
 @Component
 @Order(3)

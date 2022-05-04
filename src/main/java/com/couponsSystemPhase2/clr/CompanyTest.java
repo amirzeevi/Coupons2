@@ -12,6 +12,10 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
+/**
+ * This is the test class for the CompanyService class.
+ * Implementing all the class's methods and testing them.
+ */
 
 @Component
 @Order(2)
