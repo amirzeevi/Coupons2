@@ -10,18 +10,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * A service class for the Customer user that holds the business logic layer.
+ */
 @Service
 @Scope("prototype")
 public class CustomerService extends ClientService {
 
     private int customerID;
 
+    /**
+     * Returns true if user email and password match to database and initialize the company id. else, will return false.
+     */
     @Override
     public boolean login(String email, String password) {
         this.customerID = customerRepo.getCustomerId(email, password).orElse(0);
         return customerID != 0;
     }
 
+    /**
+     * A method to add the specified coupon to the customer vs coupon table.
+     */
     public void purchaseCoupon(Coupon coupon) {
         Coupon couponToPurchase = couponRepo.findById(coupon.getId()).
                 orElseThrow(() -> new NotFoundException("Coupon not found"));
@@ -34,21 +43,33 @@ public class CustomerService extends ClientService {
         }
         couponToPurchase.setAmount(couponToPurchase.getAmount() - 1);
         couponRepo.addCouponPurchase(coupon.getId(), customerID);
-        couponRepo.saveAndFlush(couponToPurchase); /// TODO: 15/04/2022 find a way to automate this
+        couponRepo.saveAndFlush(couponToPurchase);
     }
 
+    /**
+     * Returns this customer details.
+     */
     public List<Coupon> getCustomerCoupons() {
         return couponRepo.getCustomerCoupons(this.customerID);
     }
 
+    /**
+     * Returns a list of the customer coupons by the specified category.
+     */
     public List<Coupon> getCustomerCoupons(double maxPrice) {
         return couponRepo.getCustomerCouponsByMaxPrice(this.customerID, maxPrice);
     }
 
+    /**
+     * Returns a list of the customer coupons by the specified category.
+     */
     public List<Coupon> getCustomerCoupons(Category category) {
         return couponRepo.getCustomerCouponsByCategory(this.customerID, category.ordinal());
     }
 
+    /**
+     * Returns this customer details.
+     */
     public Customer getCustomerDetails() {
         return customerRepo.findById(this.customerID).get();
     }

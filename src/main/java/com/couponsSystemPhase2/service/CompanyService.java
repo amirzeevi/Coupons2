@@ -12,18 +12,27 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * A service class for the Company user that holds the business logic layer.
+ */
 @Service
 @Scope(value = "prototype")
 public class CompanyService extends ClientService {
 
     private int companyID;
 
+    /**
+     * Returns true if user email and password match to database and initialize the company id. else, will return false.
+     */
     @Override
     public boolean login(String email, String password) {
         this.companyID = companyRepo.getCompanyId(email, password).orElse(0);
         return this.companyID != 0;
     }
 
+    /**
+     * Adds a new coupon to the database.
+     */
     public void addCoupon(Coupon coupon) {
         checkCouponData(coupon);
 
@@ -37,6 +46,9 @@ public class CompanyService extends ClientService {
         System.out.println("Coupon added");
     }
 
+    /**
+     * Updates an existing coupon to the database.
+     */
     public void updateCoupon(Coupon coupon) {
         checkCouponData(coupon);
 
@@ -50,6 +62,9 @@ public class CompanyService extends ClientService {
         System.out.println("Coupon updated");
     }
 
+    /**
+     * Deletes a coupon from database. If id is not found, throws exception.
+     */
     public void deleteCoupon(int couponID) {
         if (!couponRepo.existsByIdAndCompanyID(couponID, companyID)) {
             throw new NotFoundException("Coupon not found");
@@ -58,22 +73,37 @@ public class CompanyService extends ClientService {
         System.out.println("Coupon deleted");
     }
 
+    /**
+     * Returns a list of all company coupons.
+     */
     public List<Coupon> getCompanyCoupons() {
         return couponRepo.findAllByCompanyID(companyID);
     }
 
+    /**
+     * Returns a list of all company coupons by the specified category.
+     */
     public List<Coupon> getCompanyCoupons(Category category) {
         return couponRepo.findAllByCompanyIDAndCategory(companyID, category);
     }
 
+    /**
+     * Returns a list of all company coupons by the specified max price.
+     */
     public List<Coupon> getCompanyCoupons(double maxPrice) {
         return couponRepo.findAllByCompanyIDAndPriceLessThanEqual(companyID, maxPrice);
     }
 
+    /**
+     * Returns this company details
+     */
     public Company getCompanyDetails() {
         return companyRepo.findById(this.companyID).get();
     }
 
+    /**
+     * Private method to check the coupon data before even trying to access database.
+     */
     private void checkCouponData(Coupon coupon) {
         if (coupon.getCompanyID() != this.companyID) {
             throw new CouponException("Coupon company id incorrect");
