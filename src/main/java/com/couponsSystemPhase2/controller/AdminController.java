@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * This is the Admin controller class that acts as the 'bridge' between the 'view' and the 'model'.
- * It implements all the AdminService methods and returns a new Jwt token with every response.
+ * It implements all the AdminService methods and returns the user a new Jwt token with every response.
  */
 @RestController
 @RequestMapping("/admin")
@@ -22,8 +22,7 @@ public class AdminController {
     private final JWTUtils jwtUtils;
 
     /**
-     * A POST request to add a new company.
-     * returns a new Jwt Token in response body.
+     * A post request to add a new company. returns a new Jwt Token in response body.
      */
     @PostMapping("/company/add")
     public ResponseEntity<?> addCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) {
@@ -32,8 +31,7 @@ public class AdminController {
     }
 
     /**
-     * A PUT request to update an existing company.
-     * returns a new Jwt Token in response body.
+     * A put request to update an existing company. returns a new Jwt Token in response body.
      */
     @PutMapping("/company/update")
     public ResponseEntity<?> updateCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) {
@@ -42,8 +40,7 @@ public class AdminController {
     }
 
     /**
-     * A DELETE request to delete an existing company.
-     * returns a new Jwt Token in response body.
+     * A delete request to delete an existing company. returns a new Jwt Token in response body.
      */
     @DeleteMapping("/company/delete/{companyID}")
     public ResponseEntity<?> deleteCompany(@RequestHeader("Authorization") String token, @PathVariable int companyID) {
@@ -52,8 +49,7 @@ public class AdminController {
     }
 
     /**
-     * A GET request for all companies in the system.
-     * returns a list of all companies and a new Jwt Token in response header.
+     * A get request for all companies in the system. returns a list of all companies and a new Jwt Token in response header.
      */
     @GetMapping("company/all")
     public ResponseEntity<?> getAllCompanies(@RequestHeader("Authorization") String token) {
@@ -63,7 +59,7 @@ public class AdminController {
     }
 
     /**
-     * A GET request for a specific company in the system.
+     * A get request for a specific company in the system.
      * returns the specified company if exists and a new Jwt Token in response header.
      */
     @GetMapping("company/single/{companyID}")
@@ -74,8 +70,7 @@ public class AdminController {
     }
 
     /**
-     * A POST request to add a new customer.
-     * returns a new Jwt Token in response body.
+     * A post request to add a new customer. returns a new Jwt Token in response body.
      */
     @PostMapping("/customer/add")
     public ResponseEntity<?> addCustomer(
@@ -85,8 +80,7 @@ public class AdminController {
     }
 
     /**
-     * A PUT request to update an existing customer.
-     * returns a new Jwt Token in response body.
+     * A put request to update an existing customer. returns a new Jwt Token in response body.
      */
     @PutMapping("/customer/update")
     public ResponseEntity<?> updateCustomer(
@@ -96,8 +90,7 @@ public class AdminController {
     }
 
     /**
-     * A DELETE request to delete an existing customer.
-     * returns a new Jwt Token in response body.
+     * A delete request to delete an existing customer. returns a new Jwt Token in response body.
      */
     @DeleteMapping("/customer/delete/{customerID}")
     public ResponseEntity<?> deleteCustomer(@RequestHeader("Authorization") String token, @PathVariable int customerID) {
@@ -106,8 +99,7 @@ public class AdminController {
     }
 
     /**
-     * A GET request for all customer in the system.
-     * returns a list of all customer and a new Jwt Token in response header.
+     * A get request for all customer in the system. returns a list of all customer and a new Jwt Token in response header.
      */
     @GetMapping("customer/single/{customerID}")
     public ResponseEntity<?> getOneCustomer(@RequestHeader("Authorization") String token, @PathVariable int customerID) {
@@ -117,8 +109,7 @@ public class AdminController {
     }
 
     /**
-     * A GET request for a single customer by id.
-     * returns the specified customer and a new Jwt Token in response header.
+     * A get request for a single customer by id. returns the specified customer and a new Jwt Token in response header.
      */
     @GetMapping("customer/all")
     public ResponseEntity<?> getAllCustomers(@RequestHeader("Authorization") String token) {
