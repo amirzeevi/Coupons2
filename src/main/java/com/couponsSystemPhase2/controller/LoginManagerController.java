@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * A controller class for the login manager component. will issue a Jwt token if a client service is made.
+ */
 @RestController
 @RequestMapping("/loginManager")
 @RequiredArgsConstructor
@@ -23,6 +26,10 @@ public class LoginManagerController {
     private final JWTUtils jwtUtils;
     private final ServiceProvider serviceProvider;
 
+    /**
+     * Passes the login manager class the user credentials. Issues a Jwt token and stores the client service
+     * attached with their token for the different Company and Customer users.
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDetails userDetails) {
         ClientService service = loginManager.login(

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A DTO bean when using the login manager controller.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

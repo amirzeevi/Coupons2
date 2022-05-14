@@ -41,7 +41,6 @@ public class Customer {
     /**
      * Required constructor for using lombok Builder to build a new customer.
      */
-
     @Builder
     public Customer(String name, String email, String password) {
         this.name = name;

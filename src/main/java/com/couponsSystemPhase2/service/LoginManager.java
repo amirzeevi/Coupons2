@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+/**
+ * A login manager class that will return the different types of users their service classes.
+ */
 @Component
 public class LoginManager {
 
@@ -30,6 +33,11 @@ public class LoginManager {
         throw new CouponException("Email or password incorrect");
     }
     */
+
+    /**
+     * A method for a user to login. Returns the user service class if email and password match,
+     * Else throws a login exception.
+     */
     public ClientService login(String email, String password, ClientType clientType) {
         ClientService clientService = ctx.getBean(clientType.serviceClass);
         if (clientService.login(email, password)) {
