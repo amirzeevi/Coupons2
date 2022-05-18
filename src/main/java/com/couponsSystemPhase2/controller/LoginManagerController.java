@@ -9,17 +9,15 @@ import com.couponsSystemPhase2.utils.ServiceProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * A controller class for the login manager component. will issue a Jwt token if a client service is made.
  */
 @RestController
-@RequestMapping("/loginManager")
+@RequestMapping("/")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class LoginManagerController {
 
     private final LoginManager loginManager;
@@ -31,6 +29,7 @@ public class LoginManagerController {
      * attached with their token for the different Company and Customer users.
      */
     @PostMapping("/login")
+    @CrossOrigin
     public ResponseEntity<?> login(@RequestBody UserDetails userDetails) {
         ClientService service = loginManager.login(
                 userDetails.getEmail(),

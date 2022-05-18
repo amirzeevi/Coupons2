@@ -17,6 +17,7 @@ import java.util.Optional;
  * It implements all the CompanyService methods. A Jwt token is requested with every method request
  *  for authorization and authentication and a new token is returned in response.
  */
+@RestController
 @RequestMapping("/company")
 @RequiredArgsConstructor
 public class CompanyController {
