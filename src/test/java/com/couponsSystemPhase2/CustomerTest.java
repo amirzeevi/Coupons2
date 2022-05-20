@@ -7,13 +7,14 @@ import com.couponsSystemPhase2.service.ClientType;
 import com.couponsSystemPhase2.service.CustomerService;
 import com.couponsSystemPhase2.service.LoginManager;
 import com.couponsSystemPhase2.utils.TablePrinter;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
+/**
+ * Please exclude clr package testing before using junit
+ */
 @SpringBootTest
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
 public class CustomerTest {
@@ -26,7 +27,7 @@ public class CustomerTest {
 
     @BeforeEach
     void setUp() {
-        customerService = (CustomerService) loginManager.login("new@com", "1234", ClientType.CUSTOMER);
+        customerService = (CustomerService) loginManager.login("john2@com", "1234", ClientType.CUSTOMER);
     }
 
     @Test

@@ -12,7 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
 import java.time.LocalDate;
-
+/**
+ * Please exclude clr package testing before using junit
+ */
 @SpringBootTest
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
 public class CompanyTest {
@@ -23,7 +25,7 @@ public class CompanyTest {
 
     @BeforeEach
     void setUp() {
-        companyService = (CompanyService) loginManager.login("new.email@com", "1234", ClientType.COMPANY);
+        companyService = (CompanyService) loginManager.login("hungry@com", "1234", ClientType.COMPANY);
     }
 
     @Test
@@ -42,7 +44,7 @@ public class CompanyTest {
     @Order(2)
     public void loginTest() {
         System.out.println("TESTING COMPANY LOGIN");
-        companyService = (CompanyService) loginManager.login("new.email@com", "1234", ClientType.COMPANY);
+        companyService = (CompanyService) loginManager.login("hungry@com", "1234", ClientType.COMPANY);
     }
 
     @Test
@@ -50,10 +52,10 @@ public class CompanyTest {
     public void addCouponTest() {
         Coupon coupon1 = Coupon
                 .builder()
-                .companyID(1)
+                .companyID(2)
                 .category(Category.HOLIDAY)
-                .title("Pants")
-                .description("discount on pants for xmes")
+                .title("Shorts")
+                .description("discount on pants for hanuka")
                 .startDate(Date.valueOf(LocalDate.now()))
                 .endDate(Date.valueOf(LocalDate.now().plusDays(14)))
                 .amount(20)
@@ -63,10 +65,10 @@ public class CompanyTest {
 
         Coupon coupon2 = Coupon
                 .builder()
-                .companyID(1)
+                .companyID(2)
                 .category(Category.HOLIDAY)
-                .title("Shirts")
-                .description("discount on shirts for xmes")
+                .title("Sweater")
+                .description("discount on shirts for hanuka")
                 .startDate(Date.valueOf(LocalDate.now()))
                 .endDate(Date.valueOf(LocalDate.now().plusDays(14)))
                 .amount(20)
@@ -76,10 +78,10 @@ public class CompanyTest {
 
         Coupon coupon3 = Coupon
                 .builder()
-                .companyID(1)
+                .companyID(2)
                 .category(Category.MUSEUM)
-                .title("Socks")
-                .description("discount on pants if go to a museum")
+                .title("Shoes")
+                .description("discount on shoes if go to a museum")
                 .startDate(Date.valueOf(LocalDate.now()))
                 .endDate(Date.valueOf(LocalDate.now().plusDays(14)))
                 .amount(20)
@@ -100,8 +102,8 @@ public class CompanyTest {
                 .builder()
                 .companyID(1)
                 .category(Category.HOLIDAY)
-                .title("Pants")
-                .description("disecount on pants for xmes")
+                .title("Shorts")
+                .description("discount on pants for hanuka")
                 .startDate(Date.valueOf(LocalDate.now()))
                 .endDate(Date.valueOf(LocalDate.now().plusDays(14)))
                 .amount(20)
@@ -144,7 +146,8 @@ public class CompanyTest {
     @Order(7)
     public void deleteCouponTest() {
         System.out.println("TESTING DELETE COUPON");
-        companyService.deleteCoupon(3);
+        int id = companyService.getCompanyCoupons().get(0).getId();
+        companyService.deleteCoupon(id);
     }
 
     @Test
@@ -152,7 +155,7 @@ public class CompanyTest {
     public void deleteCouponFail() {
         try {
             System.out.println("TESTING DELETE COUPON FAIL");
-            companyService.deleteCoupon(3);
+            companyService.deleteCoupon(343);
             Assertions.fail();
         } catch (Exception e) {
             System.out.println(e.getMessage());

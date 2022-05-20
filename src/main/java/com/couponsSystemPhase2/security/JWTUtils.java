@@ -25,7 +25,7 @@ public class JWTUtils {
     }
 
     public String generateToken(String token) {
-        token = token.replace("Bearer: ", "");
+        token = token.replace("Bearer ", "");
         Claims claims = extractAllClaims(token);
         Map<String, Object> mapClaims = Map.of("type", claims.get("type"));
         return createToken(mapClaims, claims.getSubject());
@@ -33,7 +33,7 @@ public class JWTUtils {
 
     private String createToken(Map<String, Object> claims, String email) {
         Instant now = Instant.now();
-        return Jwts.builder()
+        return "Bearer " + Jwts.builder()
                 .setClaims(claims)
                 .setSubject(email)
                 .setIssuedAt(Date.from(now))
@@ -56,6 +56,7 @@ public class JWTUtils {
     }
 
     public boolean validateToken(String token, ClientType clientType) {
+        token = token.replace("Bearer ", "");
         Claims claims = extractAllClaims(token);
         if (!(claims.get("type").equals(clientType.toString()))) {
             throw new TokenException("User Not allowed");

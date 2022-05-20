@@ -10,6 +10,9 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * Please exclude clr package testing before using junit
+ */
 @SpringBootTest
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
 class AdminTest {
@@ -45,21 +48,21 @@ class AdminTest {
     @Order(3)
     public void addCompanyTest() {
         Company company1 = Company.builder()
-                .name("Fresh clothing")
-                .email("fresh@com")
+                .name("Push&Pull clothing")
+                .email("pull@com")
                 .password("1234")
                 .build();
 
         Company company2 = Company.builder()
-                .name("MacDonald")
-                .email("burger@com")
+                .name("Big Hungry")
+                .email("hungry@com")
                 .password("1234")
                 .build();
 
 
         Company company3 = Company.builder()
-                .name("Sun Sails")
-                .email("sails@com")
+                .name("Go Away Tours")
+                .email("tours@com")
                 .password("1234")
                 .build();
         try {
@@ -76,8 +79,8 @@ class AdminTest {
     @Order(4)
     public void companyAddFail() {
         Company company1 = Company.builder()
-                .name("Fresh clothing")
-                .email("fresh@com")
+                .name("Push&Pull clothing")
+                .email("pull@com")
                 .password("1234")
                 .build();
         try {
@@ -94,7 +97,7 @@ class AdminTest {
     public void updateCompanyTest() {
         System.out.println("TESTING UPDATE COMPANY");
         Company companyFromDB = adminService.getOneCompany(1);
-        companyFromDB.setEmail("new.email@com");
+        companyFromDB.setEmail("new.email2@com");
         adminService.updateCompany(companyFromDB);
     }
 
@@ -104,7 +107,7 @@ class AdminTest {
         try {
             System.out.println("TESTING UPDATE COMPANY FAIL");
             Company companyFromDB = adminService.getOneCompany(1);
-            companyFromDB.setEmail("burger@com");
+            companyFromDB.setEmail("hungry@com");
             adminService.updateCompany(companyFromDB);
             Assertions.fail();
         } catch (Exception e) {
@@ -116,7 +119,8 @@ class AdminTest {
     @Order(7)
     public void deleteCompanyTest() {
         System.out.println("TESTING DELETE COMPANY");
-        adminService.deleteCompany(3);
+        int id = adminService.getAllCompanies().get(0).getId();
+        adminService.deleteCompany(id);
     }
 
     @Test
@@ -124,7 +128,7 @@ class AdminTest {
     public void deleteCompanyFail() {
         try {
             System.out.println("TESTING DELETE COMPANY FAIL");
-            adminService.deleteCompany(3);
+            adminService.deleteCompany(414);
             Assertions.fail();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -142,7 +146,7 @@ class AdminTest {
     @Order(10)
     public void getOneCompany() {
         System.out.println("TESTING GET ONE COMPANY");
-        TablePrinter.print(adminService.getOneCompany(1));
+        TablePrinter.print(adminService.getOneCompany(2));
     }
 
     @Test
@@ -162,19 +166,19 @@ class AdminTest {
     public void addCustomerTest() {
         Customer customer1 = Customer.builder()
                 .name("Moshe")
-                .email("my.email@com")
+                .email("my.email2@com")
                 .password("1234")
                 .build();
 
         Customer customer2 = Customer.builder()
                 .name("John")
-                .email("john@com")
+                .email("john2@com")
                 .password("1234")
                 .build();
 
         Customer customer3 = Customer.builder()
                 .name("Fredo")
-                .email("fredo@com")
+                .email("fredo2@com")
                 .password("1234")
                 .build();
 
@@ -189,7 +193,7 @@ class AdminTest {
     public void AddCustomerFail() {
         Customer customer1 = Customer.builder()
                 .name("Moshe")
-                .email("my.email@com")
+                .email("my.email2@com")
                 .password("1234")
                 .build();
         try {
@@ -207,7 +211,7 @@ class AdminTest {
     public void updateCustomerTest() {
         System.out.println("TESTING UPDATE CUSTOMER");
         Customer custFromDB = adminService.getOneCustomer(1);
-        custFromDB.setEmail("new@com");
+        custFromDB.setEmail("new2@com");
         adminService.updateCustomer(custFromDB);
     }
 
@@ -215,7 +219,7 @@ class AdminTest {
     @Order(15)
     public void updateCustomerFail() {
         Customer custFromDB = adminService.getOneCustomer(1);
-        custFromDB.setEmail("john@com");
+        custFromDB.setEmail("john2@com");
         try {
             System.out.println("TESTING UPDATE CUSTOMER FAIL");
             adminService.updateCustomer(custFromDB);
@@ -229,7 +233,8 @@ class AdminTest {
     @Order(16)
     public void deleteCustomerTest() {
         System.out.println("TESTING DELETE CUSTOMER");
-        adminService.deleteCustomer(3);
+        int id = adminService.getAllCustomers().get(0).getId();
+        adminService.deleteCustomer(id);
     }
 
     @Test
@@ -237,7 +242,7 @@ class AdminTest {
     public void deleteCustomerFail() {
         try {
             System.out.println("TESTING DELETE CUSTOMER FAIL");
-            adminService.deleteCustomer(3);
+            adminService.deleteCustomer(313);
             Assertions.fail();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -255,7 +260,7 @@ class AdminTest {
     @Order(19)
     public void getOneCustomerTest() {
         System.out.println("TESTING GET ONE CUSTOMER");
-        TablePrinter.print(adminService.getOneCustomer(1));
+        TablePrinter.print(adminService.getOneCustomer(2));
     }
 
     @Test
@@ -263,7 +268,7 @@ class AdminTest {
     public void getOneCustomerFail() {
         try {
             System.out.println("TESTING GET ONE CUSTOMER FAIL");
-            TablePrinter.print(adminService.getOneCustomer(13431));
+            TablePrinter.print(adminService.getOneCustomer(131));
             Assertions.fail();
         } catch (Exception e) {
             System.out.println(e.getMessage());
