@@ -27,7 +27,7 @@ public class AdminController {
     @PostMapping("/addCompany")
     public ResponseEntity<?> addCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) {
         adminService.addCompany(company);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.OK);
+        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.CREATED);
     }
 
     /**
@@ -36,7 +36,7 @@ public class AdminController {
     @PutMapping("/updateCompany")
     public ResponseEntity<?> updateCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) {
         adminService.updateCompany(company);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.OK);
+        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.ACCEPTED);
     }
 
     /**
@@ -76,7 +76,7 @@ public class AdminController {
     public ResponseEntity<?> addCustomer(
             @RequestHeader("Authorization") String token, @RequestBody Customer customer) {
         adminService.addCustomer(customer);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.OK);
+        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.CREATED);
     }
 
     /**
@@ -86,7 +86,7 @@ public class AdminController {
     public ResponseEntity<?> updateCustomer(
             @RequestHeader("Authorization") String token, @RequestBody Customer customer) {
         adminService.updateCustomer(customer);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.OK);
+        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.ACCEPTED);
     }
 
     /**

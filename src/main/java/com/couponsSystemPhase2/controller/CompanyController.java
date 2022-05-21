@@ -30,7 +30,7 @@ public class CompanyController {
     @PostMapping("/add")
     public ResponseEntity<?> addCoupon(@RequestHeader("Authorization") String token, @RequestBody Coupon coupon) {
         getCompanyService(token).addCoupon(coupon);
-        return new ResponseEntity<>(refreshToken(token), HttpStatus.OK);
+        return new ResponseEntity<>(refreshToken(token), HttpStatus.CREATED);
     }
 
     /**
@@ -39,7 +39,7 @@ public class CompanyController {
     @PutMapping("/update")
     public ResponseEntity<?> updateCoupon(@RequestHeader("Authorization") String token, @RequestBody Coupon coupon) {
         getCompanyService(token).updateCoupon(coupon);
-        return new ResponseEntity<>(refreshToken(token), HttpStatus.OK);
+        return new ResponseEntity<>(refreshToken(token), HttpStatus.ACCEPTED);
     }
 
     /**

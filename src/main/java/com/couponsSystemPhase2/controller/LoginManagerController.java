@@ -41,6 +41,6 @@ public class LoginManagerController {
         if (!(service instanceof AdminService)) {
             serviceProvider.addService(token, service);
         }
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        return new ResponseEntity<>(token, HttpStatus.CREATED);
     }
 }

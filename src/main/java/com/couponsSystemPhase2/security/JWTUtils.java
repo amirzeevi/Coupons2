@@ -2,8 +2,11 @@ package com.couponsSystemPhase2.security;
 
 import com.couponsSystemPhase2.exception.TokenException;
 import com.couponsSystemPhase2.service.ClientType;
-import io.jsonwebtoken.*;
-import org.springframework.stereotype.Component;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
@@ -13,7 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Map;
 
-@Component
+@Service
 public class JWTUtils {
     private final String signatureAlgorithm = SignatureAlgorithm.HS256.getJcaName();
     private final String encodedSecretKey = "this+is+my+secret+key+i+am+the+only+one+who+knows+about+it";

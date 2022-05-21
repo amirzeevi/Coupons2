@@ -30,7 +30,7 @@ public class CustomerController {
     @PostMapping("/purchase")
     public ResponseEntity<?> purchaseCoupon(@RequestHeader("Authorization") String token, @RequestBody Coupon coupon) {
         getCustomerService(token).purchaseCoupon(coupon);
-        return new ResponseEntity<>(refreshToken(token), HttpStatus.OK);
+        return new ResponseEntity<>(refreshToken(token), HttpStatus.CREATED);
     }
 
     /**
