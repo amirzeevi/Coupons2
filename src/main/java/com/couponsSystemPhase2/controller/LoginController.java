@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-public class LoginManagerController {
+public class LoginController {
 
     private final LoginManager loginManager;
     private final JWTUtils jwtUtils;
@@ -41,6 +41,6 @@ public class LoginManagerController {
         if (!(service instanceof AdminService)) {
             serviceProvider.addService(token, service);
         }
-        return new ResponseEntity<>(token, HttpStatus.CREATED);
+        return ResponseEntity.ok().header("Authorization", token).build();
     }
 }

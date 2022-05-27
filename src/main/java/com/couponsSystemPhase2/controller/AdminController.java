@@ -4,6 +4,7 @@ import com.couponsSystemPhase2.beans.Company;
 import com.couponsSystemPhase2.beans.Customer;
 import com.couponsSystemPhase2.security.JWTUtils;
 import com.couponsSystemPhase2.service.AdminService;
+import io.swagger.annotations.ResponseHeader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,34 +25,34 @@ public class AdminController {
     /**
      * A post request to add a new company. returns a new Jwt Token in response body.
      */
-    @PostMapping("/addCompany")
+    @PostMapping("/company")
     public ResponseEntity<?> addCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) {
         adminService.addCompany(company);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.CREATED);
+        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
     }
 
     /**
      * A put request to update an existing company. returns a new Jwt Token in response body.
      */
-    @PutMapping("/updateCompany")
+    @PutMapping("/company")
     public ResponseEntity<?> updateCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) {
         adminService.updateCompany(company);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.ACCEPTED);
+        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
     }
 
     /**
      * A delete request to delete an existing company. returns a new Jwt Token in response body.
      */
-    @DeleteMapping("/deleteCompany/{companyID}")
+    @DeleteMapping("/company/{companyID}")
     public ResponseEntity<?> deleteCompany(@RequestHeader("Authorization") String token, @PathVariable int companyID) {
         adminService.deleteCompany(companyID);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.OK);
+        return ResponseEntity.ok().header("Authorization",jwtUtils.generateToken(token)).build();
     }
 
     /**
      * A get request for all companies in the system. returns a list of all companies and a new Jwt Token in response header.
      */
-    @GetMapping("/getAllCompanies")
+    @GetMapping("/company/all")
     public ResponseEntity<?> getAllCompanies(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok()
                 .header("Authorization", jwtUtils.generateToken(token))
@@ -62,7 +63,7 @@ public class AdminController {
      * A get request for a specific company in the system.
      * returns the specified company if exists and a new Jwt Token in response header.
      */
-    @GetMapping("/getOneCompany/{companyID}")
+    @GetMapping("/company/{companyID}")
     public ResponseEntity<?> getOneCompany(@RequestHeader("Authorization") String token, @PathVariable int companyID) {
         return ResponseEntity.ok()
                 .header("Authorization", jwtUtils.generateToken(token))
@@ -72,36 +73,36 @@ public class AdminController {
     /**
      * A post request to add a new customer. returns a new Jwt Token in response body.
      */
-    @PostMapping("/addCustomer")
+    @PostMapping("/customer")
     public ResponseEntity<?> addCustomer(
             @RequestHeader("Authorization") String token, @RequestBody Customer customer) {
         adminService.addCustomer(customer);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.CREATED);
+        return ResponseEntity.ok().header("Authorization",jwtUtils.generateToken(token)).build();
     }
 
     /**
      * A put request to update an existing customer. returns a new Jwt Token in response body.
      */
-    @PutMapping("/updateCustomer")
+    @PutMapping("/customer")
     public ResponseEntity<?> updateCustomer(
             @RequestHeader("Authorization") String token, @RequestBody Customer customer) {
         adminService.updateCustomer(customer);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.ACCEPTED);
+        return ResponseEntity.ok().header("Authorization",jwtUtils.generateToken(token)).build();
     }
 
     /**
      * A delete request to delete an existing customer. returns a new Jwt Token in response body.
      */
-    @DeleteMapping("/deleteCustomer/{customerID}")
+    @DeleteMapping("/customer/{customerID}")
     public ResponseEntity<?> deleteCustomer(@RequestHeader("Authorization") String token, @PathVariable int customerID) {
         adminService.deleteCustomer(customerID);
-        return new ResponseEntity<>(jwtUtils.generateToken(token), HttpStatus.OK);
+        return ResponseEntity.ok().header("Authorization",jwtUtils.generateToken(token)).build();
     }
 
     /**
      * A get request for all customer in the system. returns a list of all customer and a new Jwt Token in response header.
      */
-    @GetMapping("/getOneCustomer/{customerID}")
+    @GetMapping("/customer/{customerID}")
     public ResponseEntity<?> getOneCustomer(@RequestHeader("Authorization") String token, @PathVariable int customerID) {
         return ResponseEntity.ok()
                 .header("Authorization", jwtUtils.generateToken(token))
@@ -111,7 +112,7 @@ public class AdminController {
     /**
      * A get request for a single customer by id. returns the specified customer and a new Jwt Token in response header.
      */
-    @GetMapping("getAllCustomer/all")
+    @GetMapping("customer/all")
     public ResponseEntity<?> getAllCustomers(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok()
                 .header("Authorization", jwtUtils.generateToken(token))

@@ -21,9 +21,9 @@ public class Coupon {
     private int id;
     @Column(name = "company_id")
     private int companyID;
-    private Category category;
     private String title;
     private String description;
+    private Category category;
     private Date startDate;
     private Date endDate;
     private int amount;
