@@ -3,7 +3,9 @@ package com.couponsSystemPhase2.clr;
 import com.couponsSystemPhase2.beans.Category;
 import com.couponsSystemPhase2.beans.Coupon;
 import com.couponsSystemPhase2.repositories.CouponRepo;
+import com.couponsSystemPhase2.service.ClientType;
 import com.couponsSystemPhase2.service.CustomerService;
+import com.couponsSystemPhase2.service.LoginManager;
 import com.couponsSystemPhase2.utils.TablePrinter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -22,13 +24,14 @@ import java.util.List;
 public class CustomerTest implements CommandLineRunner {
 
     private final CustomerService customerService;
+    private final LoginManager loginManager;
     private final CouponRepo couponRepo;
 
     @Override
     public void run(String... args) throws Exception {
         try {
             System.out.println("TESTING CUSTOMER LOGIN FAIL");
-            customerService.login("vfvs", "xcvxcv");
+            loginManager.login("ascas", "vfsv", ClientType.CUSTOMER);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

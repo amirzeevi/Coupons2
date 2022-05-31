@@ -2,9 +2,13 @@ package com.couponsSystemPhase2.clr;
 
 import com.couponsSystemPhase2.beans.Category;
 import com.couponsSystemPhase2.beans.Coupon;
+import com.couponsSystemPhase2.service.ClientType;
 import com.couponsSystemPhase2.service.CompanyService;
+import com.couponsSystemPhase2.service.LoginManager;
 import com.couponsSystemPhase2.utils.TablePrinter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -23,13 +27,14 @@ import java.time.LocalDate;
 public class CompanyTest implements CommandLineRunner {
 
     private final CompanyService companyService;
+    private final LoginManager loginManager;
 
     @Override
     public void run(String... args) throws Exception {
 
         try {
             System.out.println("TESTING COMPANY LOGIN FAIL");
-            companyService.login("ascas", "vfsv");
+            loginManager.login("ascas", "vfsv", ClientType.COMPANY);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -135,7 +140,5 @@ public class CompanyTest implements CommandLineRunner {
         System.out.println("TESTING GET COMPANY DETAILS");
         TablePrinter.print(companyService.getCompanyDetails());
         System.out.println();
-
-
     }
 }

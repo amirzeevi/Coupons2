@@ -52,7 +52,7 @@ public class CompanyService extends ClientService {
     public void updateCoupon(Coupon coupon) {
         checkCouponData(coupon);
 
-        if (!(couponRepo.existsById(coupon.getId()))) {
+        if (!couponRepo.existsById(coupon.getId())) {
             throw new NotFoundException("Coupon not found");
         }
         if (couponRepo.existsByTitleAndCompanyIDAndIdNot(coupon.getTitle(), this.companyID, coupon.getId())) {
