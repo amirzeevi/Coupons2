@@ -1,6 +1,7 @@
 package com.couponsSystemPhase2.service;
 
 import com.couponsSystemPhase2.beans.Company;
+import com.couponsSystemPhase2.beans.Coupon;
 import com.couponsSystemPhase2.beans.Customer;
 import com.couponsSystemPhase2.exception.CouponException;
 import com.couponsSystemPhase2.exception.NotFoundException;
@@ -24,23 +25,26 @@ public class AdminService extends ClientService {
     /**
      * Adds a new company to the database.
      */
-    public void addCompany(Company company) {
+    public int addCompany(Company company) {
         if (company.getId() != 0) {
             throw new CouponException("You can not enter id");
         }
         if (companyRepo.existsByNameOrEmail(company.getName(), company.getEmail())) {
             throw new CouponException("Company name or email already exists");
         }
-        companyRepo.saveAndFlush(company);
         System.out.println("Company added");
+       return companyRepo.saveAndFlush(company).getId();
     }
 
     /**
      * Updates an existing company to the database.
      */
     public void updateCompany(Company company) {
-        if (!(companyRepo.existsById(company.getId()))) {
-            throw new NotFoundException("Company not found");
+        Company companyFromDB = companyRepo.findById(company.getId())
+                .orElseThrow(() -> new CouponException("Company not found"));
+
+        if (!company.getName().equals(companyFromDB.getName())) {
+            throw new CouponException("Can not change company name");
         }
         if (companyRepo.existsByEmailAndIdNot(company.getEmail(), company.getId())) {
             throw new CouponException("Can not update company; existing email");
@@ -78,15 +82,15 @@ public class AdminService extends ClientService {
     /**
      * Adds a new customer to database.
      */
-    public void addCustomer(Customer customer) {
+    public int addCustomer(Customer customer) {
         if (customer.getId() != 0) {
             throw new CouponException("You can not enter id");
         }
         if (customerRepo.existsByEmail(customer.getEmail())) {
             throw new CouponException("Email already exists");
         }
-        customerRepo.saveAndFlush(customer);
         System.out.println("Customer added");
+        return customerRepo.saveAndFlush(customer).getId();
     }
 
     /**

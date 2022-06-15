@@ -6,7 +6,6 @@ import com.couponsSystemPhase2.exception.TokenException;
 import com.couponsSystemPhase2.service.CustomerService;
 import com.couponsSystemPhase2.utils.ServiceProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

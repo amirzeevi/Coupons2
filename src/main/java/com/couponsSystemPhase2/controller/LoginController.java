@@ -7,7 +7,6 @@ import com.couponsSystemPhase2.service.ClientService;
 import com.couponsSystemPhase2.service.LoginManager;
 import com.couponsSystemPhase2.utils.ServiceProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class LoginController {
 
     private final LoginManager loginManager;
@@ -29,7 +27,6 @@ public class LoginController {
      * attached with their token for the different Company and Customer users.
      */
     @PostMapping("/login")
-    @CrossOrigin
     public ResponseEntity<?> login(@RequestBody UserDetails userDetails) {
         ClientService service = loginManager.login(
                 userDetails.getEmail(),

@@ -4,9 +4,7 @@ import com.couponsSystemPhase2.beans.Company;
 import com.couponsSystemPhase2.beans.Customer;
 import com.couponsSystemPhase2.security.JWTUtils;
 import com.couponsSystemPhase2.service.AdminService;
-import io.swagger.annotations.ResponseHeader;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +25,8 @@ public class AdminController {
      */
     @PostMapping("/company")
     public ResponseEntity<?> addCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) {
-        adminService.addCompany(company);
-        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
+        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token))
+                .body(adminService.addCompany(company));
     }
 
     /**
@@ -46,7 +44,7 @@ public class AdminController {
     @DeleteMapping("/company/{companyID}")
     public ResponseEntity<?> deleteCompany(@RequestHeader("Authorization") String token, @PathVariable int companyID) {
         adminService.deleteCompany(companyID);
-        return ResponseEntity.ok().header("Authorization",jwtUtils.generateToken(token)).build();
+        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
     }
 
     /**
@@ -76,8 +74,8 @@ public class AdminController {
     @PostMapping("/customer")
     public ResponseEntity<?> addCustomer(
             @RequestHeader("Authorization") String token, @RequestBody Customer customer) {
-        adminService.addCustomer(customer);
-        return ResponseEntity.ok().header("Authorization",jwtUtils.generateToken(token)).build();
+        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token))
+                .body(adminService.addCustomer(customer));
     }
 
     /**
@@ -87,7 +85,7 @@ public class AdminController {
     public ResponseEntity<?> updateCustomer(
             @RequestHeader("Authorization") String token, @RequestBody Customer customer) {
         adminService.updateCustomer(customer);
-        return ResponseEntity.ok().header("Authorization",jwtUtils.generateToken(token)).build();
+        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
     }
 
     /**
@@ -96,7 +94,7 @@ public class AdminController {
     @DeleteMapping("/customer/{customerID}")
     public ResponseEntity<?> deleteCustomer(@RequestHeader("Authorization") String token, @PathVariable int customerID) {
         adminService.deleteCustomer(customerID);
-        return ResponseEntity.ok().header("Authorization",jwtUtils.generateToken(token)).build();
+        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
     }
 
     /**
