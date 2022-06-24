@@ -2,6 +2,7 @@ package com.couponsSystemPhase2.clr;
 
 import com.couponsSystemPhase2.beans.Category;
 import com.couponsSystemPhase2.beans.Coupon;
+import com.couponsSystemPhase2.controller.UserDetails;
 import com.couponsSystemPhase2.repositories.CouponRepo;
 import com.couponsSystemPhase2.service.ClientType;
 import com.couponsSystemPhase2.service.CustomerService;
@@ -31,7 +32,8 @@ public class CustomerTest implements CommandLineRunner {
     public void run(String... args) throws Exception {
         try {
             System.out.println("TESTING CUSTOMER LOGIN FAIL");
-            loginManager.login("ascas", "vfsv", ClientType.CUSTOMER);
+            UserDetails userDetails = new UserDetails("ascas", "vfsv", ClientType.CUSTOMER);
+            loginManager.login(userDetails);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

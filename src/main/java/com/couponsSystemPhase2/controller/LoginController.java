@@ -5,10 +5,12 @@ import com.couponsSystemPhase2.security.JWTUtils;
 import com.couponsSystemPhase2.service.AdminService;
 import com.couponsSystemPhase2.service.ClientService;
 import com.couponsSystemPhase2.service.LoginManager;
-import com.couponsSystemPhase2.utils.ServiceProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * A controller class for the login manager component. will issue a Jwt token if a client service is made.
@@ -20,24 +22,15 @@ public class LoginController {
 
     private final LoginManager loginManager;
     private final JWTUtils jwtUtils;
-    private final ServiceProvider serviceProvider;
+
 
     /**
-     * Passes the login manager class the user credentials. Issues a Jwt token and stores the client service
-     * attached with their token for the different Company and Customer users.
+     * Passes the login manager class the user credentials. Issues a Jwt token.
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDetails userDetails) {
-        ClientService service = loginManager.login(
-                userDetails.getEmail(),
-                userDetails.getPassword(),
-                userDetails.getClientType());
-        String token = jwtUtils.generateToken(
-                userDetails.getEmail(),
-                userDetails.getClientType());
-        if (!(service instanceof AdminService)) {
-            serviceProvider.addService(token, service);
-        }
+        loginManager.login(userDetails);
+        String token = jwtUtils.generateToken(userDetails.getEmail(), userDetails.getClientType());
         return ResponseEntity.ok().header("Authorization", token).build();
     }
 }

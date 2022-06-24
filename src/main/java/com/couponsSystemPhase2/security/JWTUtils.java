@@ -27,9 +27,9 @@ public class JWTUtils {
         return createToken(claims, email);
     }
 
-    public String generateToken(String token) {
-        token = token.replace("Bearer ", "");
-        Claims claims = extractAllClaims(token);
+    public String refreshToken(String oldToken) {
+        oldToken = oldToken.replace("Bearer ", "");
+        Claims claims = extractAllClaims(oldToken);
         Map<String, Object> mapClaims = Map.of("type", claims.get("type"));
         return createToken(mapClaims, claims.getSubject());
     }
@@ -51,7 +51,7 @@ public class JWTUtils {
 
     public boolean isExpired(String token) {
         try {
-            extractAllClaims(token);
+            extractAllClaims(token.replace("Bearer ", ""));
         } catch (ExpiredJwtException err) {
             return true;
         }

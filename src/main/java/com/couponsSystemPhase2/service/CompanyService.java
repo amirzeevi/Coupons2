@@ -5,6 +5,7 @@ import com.couponsSystemPhase2.beans.Company;
 import com.couponsSystemPhase2.beans.Coupon;
 import com.couponsSystemPhase2.exception.CouponException;
 import com.couponsSystemPhase2.exception.NotFoundException;
+import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,6 @@ import java.util.List;
  * A service class for the Company user that holds the business logic layer.
  */
 @Service
-@Scope(value = "prototype")
 public class CompanyService extends ClientService {
 
     private int companyID;
@@ -33,7 +33,7 @@ public class CompanyService extends ClientService {
     /**
      * Adds a new coupon to the database.
      */
-    public void addCoupon(Coupon coupon) {
+    public int addCoupon(Coupon coupon) {
         checkCouponData(coupon);
 
         if (coupon.getId() != 0) {
@@ -42,8 +42,9 @@ public class CompanyService extends ClientService {
         if (couponRepo.existsByTitleAndCompanyID(coupon.getTitle(), this.companyID)) {
             throw new CouponException("You already own this coupon");
         }
-        couponRepo.saveAndFlush(coupon);
+        coupon.setCompanyID(this.companyID);
         System.out.println("Coupon added");
+        return couponRepo.saveAndFlush(coupon).getId();
     }
 
     /**
@@ -58,6 +59,7 @@ public class CompanyService extends ClientService {
         if (couponRepo.existsByTitleAndCompanyIDAndIdNot(coupon.getTitle(), this.companyID, coupon.getId())) {
             throw new CouponException("Coupon title already exists");
         }
+        coupon.setCompanyID(this.companyID);
         couponRepo.saveAndFlush(coupon);
         System.out.println("Coupon updated");
     }
@@ -105,9 +107,9 @@ public class CompanyService extends ClientService {
      * Private method to check the coupon data before even trying to access database.
      */
     private void checkCouponData(Coupon coupon) {
-        if (coupon.getCompanyID() != this.companyID) {
-            throw new CouponException("Coupon company id incorrect");
-        }
+//        if (coupon.getCompanyID() != this.companyID) {
+//            throw new CouponException("Coupon company id incorrect");
+//        }
         if (coupon.getStartDate().after(coupon.getEndDate()) ||
                 coupon.getEndDate().before(Date.valueOf(LocalDate.now()))) {
             throw new CouponException("Coupon date incorrect");

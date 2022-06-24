@@ -2,6 +2,7 @@ package com.couponsSystemPhase2;
 
 import com.couponsSystemPhase2.beans.Company;
 import com.couponsSystemPhase2.beans.Customer;
+import com.couponsSystemPhase2.controller.UserDetails;
 import com.couponsSystemPhase2.service.AdminService;
 import com.couponsSystemPhase2.service.ClientType;
 import com.couponsSystemPhase2.service.LoginManager;
@@ -26,7 +27,8 @@ class AdminTest {
     public void loginFail() {
         try {
             System.out.println("TESTING LOGIN FAIL");
-            loginManager.login("Xadmin@admin", "admin", ClientType.ADMINISTRATOR);
+            UserDetails userDetails = new UserDetails("Xadmin@admin", "admin", ClientType.ADMINISTRATOR);
+            loginManager.login(userDetails);
             Assertions.fail();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -38,7 +40,8 @@ class AdminTest {
     public void loginTest() {
         try {
             System.out.println("TESTING LOGIN FAIL");
-            loginManager.login("admin@admin", "admin", ClientType.ADMINISTRATOR);
+            UserDetails userDetails = new UserDetails("admin@admin", "admin", ClientType.ADMINISTRATOR);
+            loginManager.login(userDetails);
         } catch (Exception e) {
             Assertions.fail();
         }

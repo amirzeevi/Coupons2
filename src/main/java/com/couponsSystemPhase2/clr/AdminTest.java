@@ -2,6 +2,7 @@ package com.couponsSystemPhase2.clr;
 
 import com.couponsSystemPhase2.beans.Company;
 import com.couponsSystemPhase2.beans.Customer;
+import com.couponsSystemPhase2.controller.UserDetails;
 import com.couponsSystemPhase2.service.AdminService;
 import com.couponsSystemPhase2.service.ClientType;
 import com.couponsSystemPhase2.service.LoginManager;
@@ -25,16 +26,18 @@ public class AdminTest implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         try {
+            UserDetails userDetails = new UserDetails("Xadmin@admin","admin",  ClientType.ADMINISTRATOR );
             System.out.println("TESTING LOGIN FAIL");
-            loginManager.login("Xadmin@admin", "admin", ClientType.ADMINISTRATOR);
+            loginManager.login(userDetails);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         System.out.println();
 
         try {
+            UserDetails userDetails = new UserDetails("admin@admin","admin",  ClientType.ADMINISTRATOR );
             System.out.println("TESTING LOGIN");
-            adminService = (AdminService) loginManager.login("admin@admin", "admin", ClientType.ADMINISTRATOR);
+            adminService = (AdminService) loginManager.login(userDetails);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -2,14 +2,11 @@ package com.couponsSystemPhase2.controller;
 
 import com.couponsSystemPhase2.beans.Category;
 import com.couponsSystemPhase2.beans.Coupon;
-import com.couponsSystemPhase2.exception.TokenException;
+import com.couponsSystemPhase2.security.JWTUtils;
 import com.couponsSystemPhase2.service.CustomerService;
-import com.couponsSystemPhase2.utils.ServiceProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 /**
  * This is the Customer controller class that acts as the 'bridge' between the 'view' and the 'model'.
@@ -21,15 +18,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final ServiceProvider serviceProvider;
+    private final JWTUtils jwtUtils;
+    private final CustomerService customerService;
 
     /**
      * A post request to add a new customer. returns a new Jwt Token in response body.
      */
     @PostMapping("/purchase")
     public ResponseEntity<?> purchaseCoupon(@RequestHeader("Authorization") String token, @RequestBody Coupon coupon) {
-        getCustomerService(token).purchaseCoupon(coupon);
-        return ResponseEntity.ok().header("Authorization",refreshToken(token)).build();
+        customerService.purchaseCoupon(coupon);
+        return ResponseEntity.ok().header("Authorization", jwtUtils.refreshToken(token)).build();
     }
 
     /**
@@ -37,9 +35,8 @@ public class CustomerController {
      */
     @GetMapping("/all")
     public ResponseEntity<?> getCustomerCoupons(@RequestHeader("Authorization") String token) {
-        CustomerService customerService = getCustomerService(token);
         return ResponseEntity.ok()
-                .header("Authorization", refreshToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(customerService.getCustomerCoupons());
     }
 
@@ -49,9 +46,8 @@ public class CustomerController {
      */
     @GetMapping("/category/{category}")
     public ResponseEntity<?> getCustomerCouponsByCategory(@RequestHeader("Authorization") String token, @PathVariable Category category) {
-        CustomerService customerService = getCustomerService(token);
         return ResponseEntity.ok()
-                .header("Authorization", refreshToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(customerService.getCustomerCoupons(category));
     }
 
@@ -61,9 +57,8 @@ public class CustomerController {
      */
     @GetMapping("/maxPrice/{maxPrice}")
     public ResponseEntity<?> getCustomerCouponsByMaxPrice(@RequestHeader("Authorization") String token, @PathVariable double maxPrice) {
-        CustomerService customerService = getCustomerService(token);
         return ResponseEntity.ok()
-                .header("Authorization", refreshToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(customerService.getCustomerCoupons(maxPrice));
     }
 
@@ -73,25 +68,8 @@ public class CustomerController {
      */
     @GetMapping("/details")
     public ResponseEntity<?> getCustomerDetails(@RequestHeader("Authorization") String token) {
-        CustomerService customerService = getCustomerService(token);
         return ResponseEntity.ok()
-                .header("Authorization", refreshToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(customerService.getCustomerDetails());
-    }
-
-    /**
-     * A private method to provide the Customer Service object to be used in this class requests handles
-     * for the specific user based on his token.
-     */
-    private CustomerService getCustomerService(String token) {
-        return (CustomerService) Optional.ofNullable(serviceProvider.getServices().get(token)).
-                orElseThrow(() -> new TokenException("Token is not correct. Please log in again"));
-    }
-
-    /**
-     * Private method that generates a new token to be returned to the user based on their existing token.
-     */
-    private String refreshToken(String token) {
-        return serviceProvider.refreshToken(token);
     }
 }

@@ -5,6 +5,7 @@ import com.couponsSystemPhase2.beans.Coupon;
 import com.couponsSystemPhase2.beans.Customer;
 import com.couponsSystemPhase2.exception.CouponException;
 import com.couponsSystemPhase2.exception.NotFoundException;
+import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,6 @@ import java.util.List;
  * A service class for the Customer user that holds the business logic layer.
  */
 @Service
-@Scope("prototype")
 public class CustomerService extends ClientService {
 
     private int customerID;
@@ -39,7 +39,7 @@ public class CustomerService extends ClientService {
             throw new CouponException("Coupon is out of stock");
         }
         if (couponRepo.isPurchaseExist(coupon.getId(), customerID) == 1) {
-            throw new CouponException("You already own this coupon");
+            throw new CouponException("You already own coupon " + coupon.getTitle());
         }
         couponToPurchase.setAmount(couponToPurchase.getAmount() - 1);
         couponRepo.addCouponPurchase(coupon.getId(), customerID);

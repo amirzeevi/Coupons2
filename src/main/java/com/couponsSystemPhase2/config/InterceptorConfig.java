@@ -1,6 +1,6 @@
 package com.couponsSystemPhase2.config;
 
-import com.couponsSystemPhase2.interceptor.ServiceInterceptor;
+import com.couponsSystemPhase2.interceptor.ControllerInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -15,16 +15,16 @@ import static com.couponsSystemPhase2.service.ClientType.*;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
-    private final ServiceInterceptor adminInterceptor;
-    private final ServiceInterceptor companyInterceptor;
-    private final ServiceInterceptor customerInterceptor;
+    private final ControllerInterceptor adminInterceptor;
+    private final ControllerInterceptor companyInterceptor;
+    private final ControllerInterceptor customerInterceptor;
 
     /**
      * All args constructor that will set the interceptors with the specific client type for them.
      */
-    public InterceptorConfig(ServiceInterceptor adminInterceptor,
-                             ServiceInterceptor companyInterceptor,
-                             ServiceInterceptor customerInterceptor){
+    public InterceptorConfig(ControllerInterceptor adminInterceptor,
+                             ControllerInterceptor companyInterceptor,
+                             ControllerInterceptor customerInterceptor){
 
         this.adminInterceptor = adminInterceptor;
         adminInterceptor.clientType = ADMINISTRATOR;

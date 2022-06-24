@@ -25,7 +25,7 @@ public class AdminController {
      */
     @PostMapping("/company")
     public ResponseEntity<?> addCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) {
-        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token))
+        return ResponseEntity.ok().header("Authorization", jwtUtils.refreshToken(token))
                 .body(adminService.addCompany(company));
     }
 
@@ -35,7 +35,7 @@ public class AdminController {
     @PutMapping("/company")
     public ResponseEntity<?> updateCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) {
         adminService.updateCompany(company);
-        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
+        return ResponseEntity.ok().header("Authorization", jwtUtils.refreshToken(token)).build();
     }
 
     /**
@@ -44,7 +44,7 @@ public class AdminController {
     @DeleteMapping("/company/{companyID}")
     public ResponseEntity<?> deleteCompany(@RequestHeader("Authorization") String token, @PathVariable int companyID) {
         adminService.deleteCompany(companyID);
-        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
+        return ResponseEntity.ok().header("Authorization", jwtUtils.refreshToken(token)).build();
     }
 
     /**
@@ -53,7 +53,7 @@ public class AdminController {
     @GetMapping("/company/all")
     public ResponseEntity<?> getAllCompanies(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.generateToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(adminService.getAllCompanies());
     }
 
@@ -64,7 +64,7 @@ public class AdminController {
     @GetMapping("/company/{companyID}")
     public ResponseEntity<?> getOneCompany(@RequestHeader("Authorization") String token, @PathVariable int companyID) {
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.generateToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(adminService.getOneCompany(companyID));
     }
 
@@ -74,7 +74,7 @@ public class AdminController {
     @PostMapping("/customer")
     public ResponseEntity<?> addCustomer(
             @RequestHeader("Authorization") String token, @RequestBody Customer customer) {
-        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token))
+        return ResponseEntity.ok().header("Authorization", jwtUtils.refreshToken(token))
                 .body(adminService.addCustomer(customer));
     }
 
@@ -85,7 +85,7 @@ public class AdminController {
     public ResponseEntity<?> updateCustomer(
             @RequestHeader("Authorization") String token, @RequestBody Customer customer) {
         adminService.updateCustomer(customer);
-        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
+        return ResponseEntity.ok().header("Authorization", jwtUtils.refreshToken(token)).build();
     }
 
     /**
@@ -94,7 +94,7 @@ public class AdminController {
     @DeleteMapping("/customer/{customerID}")
     public ResponseEntity<?> deleteCustomer(@RequestHeader("Authorization") String token, @PathVariable int customerID) {
         adminService.deleteCustomer(customerID);
-        return ResponseEntity.ok().header("Authorization", jwtUtils.generateToken(token)).build();
+        return ResponseEntity.ok().header("Authorization", jwtUtils.refreshToken(token)).build();
     }
 
     /**
@@ -103,7 +103,7 @@ public class AdminController {
     @GetMapping("/customer/{customerID}")
     public ResponseEntity<?> getOneCustomer(@RequestHeader("Authorization") String token, @PathVariable int customerID) {
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.generateToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(adminService.getOneCustomer(customerID));
     }
 
@@ -113,7 +113,7 @@ public class AdminController {
     @GetMapping("customer/all")
     public ResponseEntity<?> getAllCustomers(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.generateToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(adminService.getAllCustomers());
     }
 }

@@ -2,6 +2,7 @@ package com.couponsSystemPhase2;
 
 import com.couponsSystemPhase2.beans.Category;
 import com.couponsSystemPhase2.beans.Coupon;
+import com.couponsSystemPhase2.controller.UserDetails;
 import com.couponsSystemPhase2.service.ClientType;
 import com.couponsSystemPhase2.service.CompanyService;
 import com.couponsSystemPhase2.service.LoginManager;
@@ -25,7 +26,8 @@ public class CompanyTest {
 
     @BeforeEach
     void setUp() {
-        companyService = (CompanyService) loginManager.login("hungry@com", "1234", ClientType.COMPANY);
+        UserDetails userDetails = new UserDetails("hungry@com", "1234", ClientType.COMPANY);
+        companyService = (CompanyService) loginManager.login(userDetails);
     }
 
     @Test
@@ -33,7 +35,8 @@ public class CompanyTest {
     public void loginFail() {
         try {
             System.out.println("TESTING COMPANY LOGIN FAIL");
-            loginManager.login("ascas", "vfsv", ClientType.COMPANY);
+            UserDetails userDetails = new UserDetails("ascas", "vfsv", ClientType.COMPANY);
+            loginManager.login(userDetails);
             Assertions.fail();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -44,7 +47,8 @@ public class CompanyTest {
     @Order(2)
     public void loginTest() {
         System.out.println("TESTING COMPANY LOGIN");
-        companyService = (CompanyService) loginManager.login("hungry@com", "1234", ClientType.COMPANY);
+        UserDetails userDetails = new UserDetails("hungry@com", "1234", ClientType.COMPANY);
+        companyService = (CompanyService) loginManager.login(userDetails);
     }
 
     @Test

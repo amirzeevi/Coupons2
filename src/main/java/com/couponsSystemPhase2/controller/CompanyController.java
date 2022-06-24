@@ -2,14 +2,11 @@ package com.couponsSystemPhase2.controller;
 
 import com.couponsSystemPhase2.beans.Category;
 import com.couponsSystemPhase2.beans.Coupon;
-import com.couponsSystemPhase2.exception.TokenException;
+import com.couponsSystemPhase2.security.JWTUtils;
 import com.couponsSystemPhase2.service.CompanyService;
-import com.couponsSystemPhase2.utils.ServiceProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 /**
  * This is the Company controller class that acts as the 'bridge' between the 'view' and the 'model'.
@@ -21,15 +18,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CompanyController {
 
-    private final ServiceProvider serviceProvider;
+    private final JWTUtils jwtUtils;
+    private final CompanyService companyService;
 
     /**
      * A post request to add a new coupon. returns a new Jwt Token in response body.
      */
     @PostMapping("/coupon")
     public ResponseEntity<?> addCoupon(@RequestHeader("Authorization") String token, @RequestBody Coupon coupon) {
-        getCompanyService(token).addCoupon(coupon);
-        return ResponseEntity.ok().header("Authorization",refreshToken(token)).build();
+        int id = companyService.addCoupon(coupon);
+        return ResponseEntity.ok().header("Authorization", jwtUtils.refreshToken(token))
+                .body(id);
     }
 
     /**
@@ -37,8 +36,8 @@ public class CompanyController {
      */
     @PutMapping("/coupon")
     public ResponseEntity<?> updateCoupon(@RequestHeader("Authorization") String token, @RequestBody Coupon coupon) {
-        getCompanyService(token).updateCoupon(coupon);
-        return ResponseEntity.ok().header("Authorization",refreshToken(token)).build();
+        companyService.updateCoupon(coupon);
+        return ResponseEntity.ok().header("Authorization", jwtUtils.refreshToken(token)).build();
     }
 
     /**
@@ -46,8 +45,8 @@ public class CompanyController {
      */
     @DeleteMapping("/coupon/{couponID}")
     public ResponseEntity<?> deleteCoupon(@RequestHeader("Authorization") String token, @PathVariable int couponID) {
-        getCompanyService(token).deleteCoupon(couponID);
-        return ResponseEntity.ok().header("Authorization",refreshToken(token)).build();
+        companyService.deleteCoupon(couponID);
+        return ResponseEntity.ok().header("Authorization",jwtUtils.refreshToken(token)).build();
     }
 
     /**
@@ -55,9 +54,8 @@ public class CompanyController {
      */
     @GetMapping("/coupon")
     public ResponseEntity<?> getCompanyCoupons(@RequestHeader("Authorization") String token) {
-        CompanyService companyService = getCompanyService(token);
         return ResponseEntity.ok()
-                .header("Authorization", refreshToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(companyService.getCompanyCoupons());
     }
 
@@ -67,9 +65,8 @@ public class CompanyController {
      */
     @GetMapping("/coupons/category/{category}")
     public ResponseEntity<?> getCompanyCouponsByCategory(@RequestHeader("Authorization") String token, @PathVariable Category category) {
-        CompanyService companyService = getCompanyService(token);
         return ResponseEntity.ok()
-                .header("Authorization", refreshToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(companyService.getCompanyCoupons(category));
     }
 
@@ -79,9 +76,8 @@ public class CompanyController {
      */
     @GetMapping("/coupons/maxPrice/{maxPrice}")
     public ResponseEntity<?> getCompanyCouponsByMaxPrice(@RequestHeader("Authorization") String token, @PathVariable double maxPrice) {
-        CompanyService companyService = getCompanyService(token);
         return ResponseEntity.ok()
-                .header("Authorization", refreshToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(companyService.getCompanyCoupons(maxPrice));
     }
 
@@ -91,25 +87,8 @@ public class CompanyController {
      */
     @GetMapping("/details")
     public ResponseEntity<?> getCompanyDetails(@RequestHeader("Authorization") String token) {
-        CompanyService companyService = getCompanyService(token);
         return ResponseEntity.ok()
-                .header("Authorization", refreshToken(token))
+                .header("Authorization", jwtUtils.refreshToken(token))
                 .body(companyService.getCompanyDetails());
-    }
-
-    /**
-     * A private method to provide the Company Service object to be used in this class requests handles
-     * for the specific user based on his token.
-     */
-    private CompanyService getCompanyService(String token) {
-        return (CompanyService) Optional.ofNullable(serviceProvider.getServices().get(token)).
-                orElseThrow(() -> new TokenException("Your token is not correct. Please log in again"));
-    }
-
-    /**
-     * Private method that generates a new token to be returned to the user based on their existing token.
-     */
-    private String refreshToken(String token) {
-        return serviceProvider.refreshToken(token);
     }
 }

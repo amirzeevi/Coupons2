@@ -1,5 +1,6 @@
 package com.couponsSystemPhase2.service;
 
+import com.couponsSystemPhase2.controller.UserDetails;
 import com.couponsSystemPhase2.exception.LoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -38,9 +39,9 @@ public class LoginManager {
      * A method for a user to login. Returns the user service class if email and password match,
      * Else throws a login exception.
      */
-    public ClientService login(String email, String password, ClientType clientType) {
-        ClientService clientService = ctx.getBean(clientType.serviceClass);
-        if (clientService.login(email, password)) {
+    public ClientService login(UserDetails userDetails) {
+        ClientService clientService = ctx.getBean(userDetails.getClientType().serviceClass);
+        if (clientService.login(userDetails.getEmail(), userDetails.getPassword())) {
             return clientService;
         }
         throw new LoginException("Email or password incorrect");

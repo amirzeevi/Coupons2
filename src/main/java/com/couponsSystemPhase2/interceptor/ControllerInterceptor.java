@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 @Scope("prototype")
 @RequiredArgsConstructor
-public class ServiceInterceptor implements HandlerInterceptor {
+public class ControllerInterceptor implements HandlerInterceptor {
 
     private final JWTUtils jwtUtils;
     public ClientType clientType;

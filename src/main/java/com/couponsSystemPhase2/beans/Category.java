@@ -9,5 +9,6 @@ public enum Category {
     RESTAURANT,
     VACATION,
     HOLIDAY,
-    MUSEUM
+    MUSEUM,
+    FASHION
 }
