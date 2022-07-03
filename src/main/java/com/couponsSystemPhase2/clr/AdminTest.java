@@ -35,7 +35,7 @@ public class AdminTest implements CommandLineRunner {
         System.out.println();
 
         try {
-            UserDetails userDetails = new UserDetails("admin@admin","admin",  ClientType.ADMINISTRATOR );
+            UserDetails userDetails = new UserDetails("admin@admin.com","admin",  ClientType.ADMINISTRATOR );
             System.out.println("TESTING LOGIN");
             adminService = (AdminService) loginManager.login(userDetails);
         } catch (Exception e) {
@@ -55,10 +55,15 @@ public class AdminTest implements CommandLineRunner {
                 .password("1234")
                 .build();
 
-
         Company company3 = Company.builder()
                 .name("Sun Sails")
-                .email("sails@com")
+                .email("sail@com")
+                .password("1234")
+                .build();
+
+        Company company4 = Company.builder()
+                .name("Dummy")
+                .email("dummy@com")
                 .password("1234")
                 .build();
 
@@ -83,7 +88,7 @@ public class AdminTest implements CommandLineRunner {
         try {
             System.out.println("TESTING UPDATE COMPANY");
             Company companyFromDB = adminService.getOneCompany(1);
-            companyFromDB.setEmail("new.email@com");
+            companyFromDB.setEmail("clothes@com");
             adminService.updateCompany(companyFromDB);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -102,7 +107,7 @@ public class AdminTest implements CommandLineRunner {
 
         try {
             System.out.println("TESTING DELETE COMPANY");
-            adminService.deleteCompany(3);
+            adminService.deleteCompany(4);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -110,7 +115,7 @@ public class AdminTest implements CommandLineRunner {
 
         try {
             System.out.println("TESTING DELETE COMPANY FAIL");
-            adminService.deleteCompany(3);
+            adminService.deleteCompany(4);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

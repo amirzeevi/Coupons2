@@ -107,9 +107,6 @@ public class CompanyService extends ClientService {
      * Private method to check the coupon data before even trying to access database.
      */
     private void checkCouponData(Coupon coupon) {
-//        if (coupon.getCompanyID() != this.companyID) {
-//            throw new CouponException("Coupon company id incorrect");
-//        }
         if (coupon.getStartDate().after(coupon.getEndDate()) ||
                 coupon.getEndDate().before(Date.valueOf(LocalDate.now()))) {
             throw new CouponException("Coupon date incorrect");

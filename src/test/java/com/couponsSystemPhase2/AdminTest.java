@@ -40,7 +40,7 @@ class AdminTest {
     public void loginTest() {
         try {
             System.out.println("TESTING LOGIN FAIL");
-            UserDetails userDetails = new UserDetails("admin@admin", "admin", ClientType.ADMINISTRATOR);
+            UserDetails userDetails = new UserDetails("admin@admin.com", "admin", ClientType.ADMINISTRATOR);
             loginManager.login(userDetails);
         } catch (Exception e) {
             Assertions.fail();

@@ -42,7 +42,7 @@ public class CompanyTest implements CommandLineRunner {
         }
 
         System.out.println("TESTING COMPANY LOGIN");
-        companyService.login("new.email@com", "1234");
+        companyService.login("clothes@com", "1234");
         System.out.println();
 
         Coupon coupon1 = Coupon
@@ -170,5 +170,92 @@ public class CompanyTest implements CommandLineRunner {
         System.out.println("TESTING GET COMPANY DETAILS");
         TablePrinter.print(companyService.getCompanyDetails());
         System.out.println();
+
+
+        companyService.login("burger@com", "1234");
+        System.out.println(companyService);
+        Coupon macCoupon1 = Coupon
+                .builder()
+                .category(Category.FOOD)
+                .title("Big Mac")
+                .description("Buy one get one free")
+                .startDate(Date.valueOf(LocalDate.now()))
+                .endDate(Date.valueOf(LocalDate.now().plusDays(14)))
+                .amount(6)
+                .price(5.99)
+                .image("https://calysta.eu/wp-content/uploads/2019/01/McDonalds-Big-Mac1-1024x600.jpg")
+                .build();
+
+        Coupon macCoupon2 = Coupon
+                .builder()
+                .category(Category.FOOD)
+                .title("Fries")
+                .description("50% off on fries")
+                .startDate(Date.valueOf(LocalDate.now()))
+                .endDate(Date.valueOf(LocalDate.now().plusDays(3)))
+                .amount(20)
+                .price(3.99)
+                .image("https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/newscms/2016_16/1501446/100_french-fries.jpg")
+                .build();
+
+        Coupon macCoupon3 = Coupon
+                .builder()
+                .category(Category.FOOD)
+                .title("Soda")
+                .description("30% off on any kind of soda you like")
+                .startDate(Date.valueOf(LocalDate.now()))
+                .endDate(Date.valueOf(LocalDate.now().plusDays(14)))
+                .amount(20)
+                .price(5.99)
+                .image("https://i.pinimg.com/originals/e0/2e/00/e02e00d974077910fe565934fe017b20.png")
+                .build();
+
+        companyService.addCoupon(macCoupon1);
+        companyService.addCoupon(macCoupon2);
+        companyService.addCoupon(macCoupon3);
+
+        companyService.login("sail@com", "1234");
+
+        Coupon sailCoupon1 = Coupon
+                .builder()
+                .category(Category.VACATION)
+                .title("Cruise Ship to Hawaii")
+                .description("30% off a trip to beautiful Hawaii!")
+                .startDate(Date.valueOf(LocalDate.now()))
+                .endDate(Date.valueOf(LocalDate.now().plusDays(14)))
+                .amount(15)
+                .price(299.99)
+                .image("https://beatofhawaii.com/wp-content/uploads/2021/11/NCLprideofamerica-02-740x300.jpeg")
+                .build();
+
+        Coupon sailCoupon2 = Coupon
+                .builder()
+                .category(Category.VACATION)
+                .title("Travel to Turkey")
+                .description("50% discount on a cruise ship to Turkey")
+                .startDate(Date.valueOf(LocalDate.now()))
+                .endDate(Date.valueOf(LocalDate.now().plusDays(3)))
+                .amount(20)
+                .price(299.99)
+                .image("https://idsb.tmgrup.com.tr/ly/uploads/images/2022/03/24/193378.jpg")
+                .build();
+
+        Coupon sailCoupon3 = Coupon
+                .builder()
+                .category(Category.VACATION)
+                .title("Greece")
+                .description("10% off travel through Greece beautiful islands")
+                .startDate(Date.valueOf(LocalDate.now()))
+                .endDate(Date.valueOf(LocalDate.now().plusDays(14)))
+                .amount(20)
+                .price(299.99)
+                .image("https://touristjourney.com/wp-content/uploads/2020/10/shutterstock_1079086559-2048x994.jpg")
+                .build();
+
+        companyService.addCoupon(sailCoupon1);
+        companyService.addCoupon(sailCoupon2);
+        companyService.addCoupon(sailCoupon3);
+
+
     }
 }
