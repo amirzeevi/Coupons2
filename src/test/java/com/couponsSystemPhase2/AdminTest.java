@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * Please exclude clr package testing before using junit
+ * Please exclude clr package testing before using junit 
  */
 @SpringBootTest
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
