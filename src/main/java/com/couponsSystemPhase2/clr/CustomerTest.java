@@ -19,7 +19,7 @@ import java.util.List;
  * Implementing all the class's methods and testing them.
  */
 
-//@Component
+@Component
 @Order(3)
 @RequiredArgsConstructor
 public class CustomerTest implements CommandLineRunner {
