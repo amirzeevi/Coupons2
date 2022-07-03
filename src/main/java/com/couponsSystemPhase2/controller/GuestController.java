@@ -1,4 +1,4 @@
-package com.couponsSystemPhase2.controller;
+package com.couponsSystemPhase2.controller; 
 
 import com.couponsSystemPhase2.service.GuestService;
 import lombok.RequiredArgsConstructor;
