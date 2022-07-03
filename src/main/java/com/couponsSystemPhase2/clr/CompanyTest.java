@@ -22,7 +22,7 @@ import java.time.LocalDate;
  * Implementing all the class's methods and testing them.
  */
 
-@Component
+//@Component
 @Order(2)
 @RequiredArgsConstructor
 public class CompanyTest implements CommandLineRunner {

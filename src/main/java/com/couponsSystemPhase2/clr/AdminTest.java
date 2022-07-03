@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * This is the test class for the AdminService class.
  * Implementing all the class's methods and testing them.
  */
-@Component
+//@Component
 @Order(1)
 @RequiredArgsConstructor
 public class AdminTest implements CommandLineRunner {
