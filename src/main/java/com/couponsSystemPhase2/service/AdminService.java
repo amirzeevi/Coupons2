@@ -1,6 +1,6 @@
 package com.couponsSystemPhase2.service;
 
-import com.couponsSystemPhase2.beans.Company;
+import com.couponsSystemPhase2.beans.Company; 
 import com.couponsSystemPhase2.beans.Coupon;
 import com.couponsSystemPhase2.beans.Customer;
 import com.couponsSystemPhase2.exception.CouponException;
