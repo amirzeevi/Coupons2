@@ -1,5 +1,5 @@
 package com.couponsSystemPhase2.security;
-
+ 
 import com.couponsSystemPhase2.exception.TokenException;
 import com.couponsSystemPhase2.service.ClientType;
 import io.jsonwebtoken.Claims;
