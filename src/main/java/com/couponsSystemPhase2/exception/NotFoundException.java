@@ -1,4 +1,4 @@
-package com.couponsSystemPhase2.exception;
+package com.couponsSystemPhase2.exception; 
 
 public class NotFoundException extends RuntimeException{
     public NotFoundException(String message) {
