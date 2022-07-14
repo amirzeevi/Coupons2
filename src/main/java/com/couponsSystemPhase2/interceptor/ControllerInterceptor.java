@@ -1,4 +1,4 @@
-package com.couponsSystemPhase2.interceptor;
+package com.couponsSystemPhase2.interceptor; 
 
 import com.couponsSystemPhase2.security.JWTUtils;
 import com.couponsSystemPhase2.service.ClientType;
