@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.sql.Date;
 /**
  * This is the Coupon bean that represents all coupon that will be used in the system. As well as the entities
- * to be created in the database.
+ * to be created in the database. 
  */
 
 @Entity
