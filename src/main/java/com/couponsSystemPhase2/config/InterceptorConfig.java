@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import static com.couponsSystemPhase2.service.ClientType.*;
+import static com.couponsSystemPhase2.service.ClientType.*; 
 
 /**
  * This is a Configuration class that adds Spring HandlerInterceptors into to the Spring Web Mvc configuration,
