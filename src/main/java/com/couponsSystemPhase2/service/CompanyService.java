@@ -1,4 +1,4 @@
-package com.couponsSystemPhase2.service;
+package com.couponsSystemPhase2.service; 
 
 import com.couponsSystemPhase2.beans.Category;
 import com.couponsSystemPhase2.beans.Company;
